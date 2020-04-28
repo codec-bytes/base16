@@ -16,12 +16,13 @@ success.title = ( _ , string , options , expected ) => `encode '${string}' shoul
 
 function failure ( t , string , options , ExpectedError , position ) {
 
-	t.throws( ( ) => encode( string ) , CodecError ) ;
-	t.throws( ( ) => encode( string ) , ExpectedError ) ;
-	t.throws( ( ) => encode( string ) , ( error ) => error.encoding === 'base16' ) ;
-	t.throws( ( ) => encode( string ) , ( error ) => error.object === string ) ;
-	t.throws( ( ) => encode( string ) , ( error ) => error.position.start === position.start ) ;
-	t.throws( ( ) => encode( string ) , ( error ) => error.position.end === position.end ) ;
+	const error = t.throws( ( ) => encode( string ) ) ;
+	t.true( error instanceof CodecError ) ;
+	t.true( error instanceof ExpectedError ) ;
+	t.is( error.encoding , 'base16' ) ;
+	t.is( error.object , string ) ;
+	t.is( error.position.start , position.start ) ;
+	t.is( error.position.end , position.end ) ;
 
 }
 
