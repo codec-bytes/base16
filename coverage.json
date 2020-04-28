@@ -1,6 +1,6 @@
 {
   "coverage": "0%",
-  "expectCount": 10,
+  "expectCount": 11,
   "actualCount": 0,
   "files": {
     "src/Base16DecodeError.js": {
@@ -33,6 +33,14 @@
         6
       ]
     },
+    "src/byte2pair.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        20
+      ]
+    },
     "src/decode.js": {
       "expectCount": 1,
       "actualCount": 0,
@@ -45,13 +53,6 @@
       "actualCount": 0,
       "undocumentLines": [
         3
-      ]
-    },
-    "src/byte2pair.js": {
-      "expectCount": 1,
-      "actualCount": 0,
-      "undocumentLines": [
-        20
       ]
     },
     "src/pair2byte.js": {
