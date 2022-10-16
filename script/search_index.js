@@ -1,50 +1,50 @@
 window.esdocSearchIndex = [
   [
-    "@aureooms/js-codec-base16/src/base16decodeerror.js~base16decodeerror",
+    "@codec-bytes/base16/src/base16decodeerror.js~base16decodeerror",
     "class/src/Base16DecodeError.js~Base16DecodeError.html",
-    "<span>Base16DecodeError</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/Base16DecodeError.js</span>",
+    "<span>Base16DecodeError</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/Base16DecodeError.js</span>",
     "class"
   ],
   [
-    "@aureooms/js-codec-base16/src/base16encodeerror.js~base16encodeerror",
+    "@codec-bytes/base16/src/base16encodeerror.js~base16encodeerror",
     "class/src/Base16EncodeError.js~Base16EncodeError.html",
-    "<span>Base16EncodeError</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/Base16EncodeError.js</span>",
+    "<span>Base16EncodeError</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/Base16EncodeError.js</span>",
     "class"
   ],
   [
-    "@aureooms/js-codec-base16/src/_decode.js~_decode",
+    "@codec-bytes/base16/src/_decode.js~_decode",
     "function/index.html#static-function-_decode",
-    "<span>_decode</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/_decode.js</span>",
+    "<span>_decode</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/_decode.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-codec-base16/src/_encode.js~_encode",
+    "@codec-bytes/base16/src/_encode.js~_encode",
     "function/index.html#static-function-_encode",
-    "<span>_encode</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/_encode.js</span>",
+    "<span>_encode</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/_encode.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-codec-base16/src/decode.js~decode",
+    "@codec-bytes/base16/src/decode.js~decode",
     "function/index.html#static-function-decode",
-    "<span>decode</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/decode.js</span>",
+    "<span>decode</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/decode.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-codec-base16/src/encode.js~encode",
+    "@codec-bytes/base16/src/encode.js~encode",
     "function/index.html#static-function-encode",
-    "<span>encode</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/encode.js</span>",
+    "<span>encode</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/encode.js</span>",
     "function"
   ],
   [
-    "@aureooms/js-codec-base16/src/byte2pair.js~pair2byte",
+    "@codec-bytes/base16/src/byte2pair.js~pair2byte",
     "variable/index.html#static-variable-pair2byte",
-    "<span>pair2byte</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/byte2pair.js</span>",
+    "<span>pair2byte</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/byte2pair.js</span>",
     "variable"
   ],
   [
-    "@aureooms/js-codec-base16/src/pair2byte.js~pair2byte",
+    "@codec-bytes/base16/src/pair2byte.js~pair2byte",
     "variable/index.html#static-variable-pair2byte",
-    "<span>pair2byte</span> <span class=\"search-result-import-path\">@aureooms/js-codec-base16/src/pair2byte.js</span>",
+    "<span>pair2byte</span> <span class=\"search-result-import-path\">@codec-bytes/base16/src/pair2byte.js</span>",
     "variable"
   ],
   [

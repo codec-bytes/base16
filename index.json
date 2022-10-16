@@ -567,9 +567,9 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/Base16DecodeError.js",
-    "content": "import { DecodeError } from '@aureooms/js-codec' ;\n\nexport default class Base16DecodeError extends DecodeError {\n\n\tconstructor ( reason , object , position ) {\n\t\tsuper( 'base16' , reason , object , position ) ;\n\t}\n\n}\n",
+    "content": "import {DecodeError} from '@codec-bytes/error';\n\nexport default class Base16DecodeError extends DecodeError {\n\tconstructor(reason, object, position) {\n\t\tsuper('base16', reason, object, position);\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/Base16DecodeError.js",
+    "longname": "/home/runner/work/base16/base16/src/Base16DecodeError.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -583,14 +583,14 @@
     "longname": "src/Base16DecodeError.js~Base16DecodeError",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/Base16DecodeError.js",
+    "importPath": "@codec-bytes/base16/src/Base16DecodeError.js",
     "importStyle": "Base16DecodeError",
     "description": null,
     "lineNumber": 3,
     "undocument": true,
     "interface": false,
     "extends": [
-      "@aureooms/js-codec~DecodeError"
+      "@codec-bytes/error~DecodeError"
     ]
   },
   {
@@ -604,16 +604,16 @@
     "longname": "src/Base16DecodeError.js~Base16DecodeError#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 5,
+    "lineNumber": 4,
     "undocument": true
   },
   {
     "__docId__": 51,
     "kind": "file",
     "name": "src/Base16EncodeError.js",
-    "content": "import { EncodeError } from '@aureooms/js-codec' ;\n\nexport default class Base16EncodeError extends EncodeError {\n\n\tconstructor ( reason , object , position ) {\n\t\tsuper( 'base16' , reason , object , position ) ;\n\t}\n\n}\n\n",
+    "content": "import {EncodeError} from '@codec-bytes/error';\n\nexport default class Base16EncodeError extends EncodeError {\n\tconstructor(reason, object, position) {\n\t\tsuper('base16', reason, object, position);\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/Base16EncodeError.js",
+    "longname": "/home/runner/work/base16/base16/src/Base16EncodeError.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -627,14 +627,14 @@
     "longname": "src/Base16EncodeError.js~Base16EncodeError",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/Base16EncodeError.js",
+    "importPath": "@codec-bytes/base16/src/Base16EncodeError.js",
     "importStyle": "Base16EncodeError",
     "description": null,
     "lineNumber": 3,
     "undocument": true,
     "interface": false,
     "extends": [
-      "@aureooms/js-codec~EncodeError"
+      "@codec-bytes/error~EncodeError"
     ]
   },
   {
@@ -648,16 +648,16 @@
     "longname": "src/Base16EncodeError.js~Base16EncodeError#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 5,
+    "lineNumber": 4,
     "undocument": true
   },
   {
     "__docId__": 54,
     "kind": "file",
     "name": "src/_decode.js",
-    "content": "import byte2pair from './byte2pair' ;\nimport Base16DecodeError from './Base16DecodeError' ;\n\nexport default function* _decode ( bytes , options = null ) {\n\n\tlet start = 0 ;\n\n\tfor ( const b of bytes ) {\n\n\t\tif ( b < 0x00 || b > 0xFF ) {\n\t\t\tconst reason = `byte out of range 0x00 <= ${b} <= 0xFF` ;\n\t\t\tconst position = { start : start , end : start + 1 } ;\n\t\t\tthrow new Base16DecodeError( reason , bytes , position ) ;\n\t\t}\n\n\t\tyield byte2pair[b] ;\n\n\t\t++start ;\n\n\t}\n\n}\n",
+    "content": "import byte2pair from './byte2pair.js';\nimport Base16DecodeError from './Base16DecodeError.js';\n\nexport default function* _decode(bytes, _options = null) {\n\tlet start = 0;\n\n\tfor (const b of bytes) {\n\t\tif (b < 0x00 || b > 0xff) {\n\t\t\tconst reason = `byte out of range 0x00 <= ${b} <= 0xFF`;\n\t\t\tconst position = {start, end: start + 1};\n\t\t\tthrow new Base16DecodeError(reason, bytes, position);\n\t\t}\n\n\t\tyield byte2pair[b];\n\n\t\t++start;\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/_decode.js",
+    "longname": "/home/runner/work/base16/base16/src/_decode.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -673,7 +673,7 @@
     "longname": "src/_decode.js~_decode",
     "access": "private",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/_decode.js",
+    "importPath": "@codec-bytes/base16/src/_decode.js",
     "importStyle": "_decode",
     "description": null,
     "lineNumber": 4,
@@ -686,7 +686,7 @@
         ]
       },
       {
-        "name": "options",
+        "name": "_options",
         "optional": true,
         "types": [
           "undefined"
@@ -700,9 +700,9 @@
     "__docId__": 56,
     "kind": "file",
     "name": "src/_encode.js",
-    "content": "import { iter , next , StopIteration } from '@aureooms/js-itertools' ;\n\nimport pair2byte from './pair2byte' ;\nimport Base16EncodeError from './Base16EncodeError' ;\n\nexport default function* _encode ( string , options = null ) {\n\n\tlet start = 0 ;\n\n\tconst it = iter(string) ;\n\n\twhile ( true ) {\n\n\t\tlet first, second;\n\n\t\ttry {\n\t\t\tfirst = next( it ) ;\n\t\t}\n\t\tcatch ( e ) {\n\t\t\tif ( e instanceof StopIteration ) break ;\n\t\t\telse throw e ;\n\t\t}\n\n\t\ttry {\n\t\t\tsecond = next( it ) ;\n\t\t}\n\t\tcatch ( e ) {\n\t\t\tif ( e instanceof StopIteration ) {\n\t\t\t\tconst reason = `incomplete pair starting with ${first}` ;\n\t\t\t\tconst position = { start : start , end : start + 1 } ;\n\t\t\t\tthrow new Base16EncodeError( reason , string , position ) ;\n\t\t\t}\n\t\t\telse throw e ;\n\t\t}\n\n\t\tconst pair = first + second ;\n\n\t\tif ( !pair2byte.hasOwnProperty(pair) ) {\n\t\t\tconst reason = `cannot find pair ${pair}` ;\n\t\t\tconst position = { start : start , end : start + 2 } ;\n \t\t\tthrow new Base16EncodeError( reason , string , position ) ;\n\t\t}\n\n\t\tyield pair2byte[pair] ;\n\n\t\tstart += 2 ;\n\n\t}\n\n}\n",
+    "content": "import {next, StopIteration} from '@iterable-iterator/next';\nimport {iter} from '@iterable-iterator/iter';\n\nimport pair2byte from './pair2byte.js';\nimport Base16EncodeError from './Base16EncodeError.js';\n\nexport default function* _encode(string, _options = null) {\n\tlet start = 0;\n\n\tconst it = iter(string);\n\n\twhile (true) {\n\t\tlet first;\n\t\tlet second;\n\n\t\ttry {\n\t\t\tfirst = next(it);\n\t\t} catch (error) {\n\t\t\tif (error instanceof StopIteration) break;\n\t\t\telse throw error;\n\t\t}\n\n\t\ttry {\n\t\t\tsecond = next(it);\n\t\t} catch (error) {\n\t\t\tif (error instanceof StopIteration) {\n\t\t\t\tconst reason = `incomplete pair starting with ${first}`;\n\t\t\t\tconst position = {start, end: start + 1};\n\t\t\t\tthrow new Base16EncodeError(reason, string, position);\n\t\t\t} else throw error;\n\t\t}\n\n\t\tconst pair = first + second;\n\n\t\tif (!Object.prototype.hasOwnProperty.call(pair2byte, pair)) {\n\t\t\tconst reason = `cannot find pair ${pair}`;\n\t\t\tconst position = {start, end: start + 2};\n\t\t\tthrow new Base16EncodeError(reason, string, position);\n\t\t}\n\n\t\tyield pair2byte[pair];\n\n\t\tstart += 2;\n\t}\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/_encode.js",
+    "longname": "/home/runner/work/base16/base16/src/_encode.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -718,10 +718,10 @@
     "longname": "src/_encode.js~_encode",
     "access": "private",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/_encode.js",
+    "importPath": "@codec-bytes/base16/src/_encode.js",
     "importStyle": "_encode",
     "description": null,
-    "lineNumber": 6,
+    "lineNumber": 7,
     "undocument": true,
     "params": [
       {
@@ -731,7 +731,7 @@
         ]
       },
       {
-        "name": "options",
+        "name": "_options",
         "optional": true,
         "types": [
           "undefined"
@@ -745,9 +745,9 @@
     "__docId__": 58,
     "kind": "file",
     "name": "src/byte2pair.js",
-    "content": "const digits = [\n\t'0',\n\t'1',\n\t'2',\n\t'3',\n\t'4',\n\t'5',\n\t'6',\n\t'7',\n\t'8',\n\t'9',\n\t'A',\n\t'B',\n\t'C',\n\t'D',\n\t'E',\n\t'F',\n] ;\n\nconst pair2byte = [ ] ;\n\nfor ( const first of digits ) {\n\tfor ( const second of digits ) {\n\t\tpair2byte.push( first + second ) ;\n\t}\n}\n\nexport default pair2byte ;\n",
+    "content": "const digits = [\n\t'0',\n\t'1',\n\t'2',\n\t'3',\n\t'4',\n\t'5',\n\t'6',\n\t'7',\n\t'8',\n\t'9',\n\t'A',\n\t'B',\n\t'C',\n\t'D',\n\t'E',\n\t'F',\n];\n\nconst pair2byte = [];\n\nfor (const first of digits) {\n\tfor (const second of digits) {\n\t\tpair2byte.push(first + second);\n\t}\n}\n\nexport default pair2byte;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/byte2pair.js",
+    "longname": "/home/runner/work/base16/base16/src/byte2pair.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -761,7 +761,7 @@
     "longname": "src/byte2pair.js~digits",
     "access": "public",
     "export": false,
-    "importPath": "@aureooms/js-codec-base16/src/byte2pair.js",
+    "importPath": "@codec-bytes/base16/src/byte2pair.js",
     "importStyle": null,
     "description": null,
     "lineNumber": 1,
@@ -782,7 +782,7 @@
     "longname": "src/byte2pair.js~pair2byte",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/byte2pair.js",
+    "importPath": "@codec-bytes/base16/src/byte2pair.js",
     "importStyle": "pair2byte",
     "description": null,
     "lineNumber": 20,
@@ -797,9 +797,9 @@
     "__docId__": 61,
     "kind": "file",
     "name": "src/decode.js",
-    "content": "import _decode from './_decode' ;\n\nexport default function decode ( bytes , options = null ) {\n\n\treturn [ ..._decode(bytes, options) ].join('') ;\n\n}\n",
+    "content": "import _decode from './_decode.js';\n\nexport default function decode(bytes, options = null) {\n\treturn [..._decode(bytes, options)].join('');\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/decode.js",
+    "longname": "/home/runner/work/base16/base16/src/decode.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -815,7 +815,7 @@
     "longname": "src/decode.js~decode",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/decode.js",
+    "importPath": "@codec-bytes/base16/src/decode.js",
     "importStyle": "decode",
     "description": null,
     "lineNumber": 3,
@@ -846,9 +846,9 @@
     "__docId__": 63,
     "kind": "file",
     "name": "src/encode.js",
-    "content": "import _encode from './_encode' ;\n\nexport default function encode ( bytes , options = null ) {\n\n\treturn [ ..._encode(bytes, options) ] ;\n\n}\n",
+    "content": "import _encode from './_encode.js';\n\nexport default function encode(bytes, options = null) {\n\treturn [..._encode(bytes, options)];\n}\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/encode.js",
+    "longname": "/home/runner/work/base16/base16/src/encode.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -864,7 +864,7 @@
     "longname": "src/encode.js~encode",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/encode.js",
+    "importPath": "@codec-bytes/base16/src/encode.js",
     "importStyle": "encode",
     "description": null,
     "lineNumber": 3,
@@ -895,9 +895,9 @@
     "__docId__": 65,
     "kind": "file",
     "name": "src/index.js",
-    "content": "import Base16DecodeError from './Base16DecodeError' ;\nimport Base16EncodeError from './Base16EncodeError' ;\nimport _decode from './_decode' ;\nimport _encode from './_encode' ;\nimport byte2pair from './byte2pair' ;\nimport decode from './decode' ;\nimport encode from './encode' ;\nimport pair2byte from './pair2byte' ;\n\nexport default {\n\tdecode ,\n\tencode ,\n} ;\n\nexport {\n\tBase16DecodeError ,\n\tBase16EncodeError ,\n\t_decode ,\n\t_encode ,\n\tbyte2pair ,\n\tdecode ,\n\tencode ,\n\tpair2byte ,\n} ;\n",
+    "content": "export {CodecError} from '@codec-bytes/error';\nexport {default as Base16DecodeError} from './Base16DecodeError.js';\nexport {default as _decode} from './_decode.js';\nexport {default as Base16EncodeError} from './Base16EncodeError.js';\nexport {default as byte2pair} from './byte2pair.js';\nexport {default as _encode} from './_encode.js';\nexport {default as encode} from './encode.js';\nexport {default as decode} from './decode.js';\nexport {default as pair2byte} from './pair2byte.js';\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/index.js",
+    "longname": "/home/runner/work/base16/base16/src/index.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -906,9 +906,9 @@
     "__docId__": 66,
     "kind": "file",
     "name": "src/pair2byte.js",
-    "content": "import byte2pair from './byte2pair' ;\n\nconst pair2byte = { } ;\nfor ( let b = 0x00 ; b <= 0xFF ; ++b ) pair2byte[byte2pair[b]] = b ;\n\nexport default pair2byte ;\n",
+    "content": "import byte2pair from './byte2pair.js';\n\nconst pair2byte = {};\nfor (let b = 0x00; b <= 0xff; ++b) pair2byte[byte2pair[b]] = b;\n\nexport default pair2byte;\n",
     "static": true,
-    "longname": "/home/aureooms/dev/js/js-codec-base16/src/pair2byte.js",
+    "longname": "/home/runner/work/base16/base16/src/pair2byte.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -922,7 +922,7 @@
     "longname": "src/pair2byte.js~pair2byte",
     "access": "public",
     "export": true,
-    "importPath": "@aureooms/js-codec-base16/src/pair2byte.js",
+    "importPath": "@codec-bytes/base16/src/pair2byte.js",
     "importStyle": "pair2byte",
     "description": null,
     "lineNumber": 3,
@@ -935,16 +935,16 @@
   },
   {
     "kind": "index",
-    "content": "[@aureooms/js-codec-base16](https://aureooms.github.io/js-codec-base16)\n==\n\nBase16 encoder/decoder for JavaScript.\nSee [docs](https://aureooms.github.io/js-codec-base16/index.html).\nParent is [@aureooms/js-codec](https://github.com/aureooms/js-codec).\n\n```js\n> base16.encode('DEADBEEF')\n[ 222, 173, 190, 239 ]\n> base16.decode([ 222, 173, 190, 239 ])\n'DEADBEEF'\n```\n\n[![License](https://img.shields.io/github/license/aureooms/js-codec-base16.svg)](https://raw.githubusercontent.com/aureooms/js-codec-base16/master/LICENSE)\n[![Version](https://img.shields.io/npm/v/@aureooms/js-codec-base16.svg)](https://www.npmjs.org/package/@aureooms/js-codec-base16)\n[![Build](https://img.shields.io/travis/aureooms/js-codec-base16/master.svg)](https://travis-ci.org/aureooms/js-codec-base16/branches)\n[![Dependencies](https://img.shields.io/david/aureooms/js-codec-base16.svg)](https://david-dm.org/aureooms/js-codec-base16)\n[![Dev dependencies](https://img.shields.io/david/dev/aureooms/js-codec-base16.svg)](https://david-dm.org/aureooms/js-codec-base16?type=dev)\n[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-codec-base16.svg)](https://github.com/aureooms/js-codec-base16/issues)\n[![Downloads](https://img.shields.io/npm/dm/@aureooms/js-codec-base16.svg)](https://www.npmjs.org/package/@aureooms/js-codec-base16)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/aureooms/js-codec-base16.svg)](https://codeclimate.com/github/aureooms/js-codec-base16/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/aureooms/js-codec-base16.svg)](https://codeclimate.com/github/aureooms/js-codec-base16/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/aureooms/js-codec-base16/master.svg)](https://codecov.io/gh/aureooms/js-codec-base16)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/aureooms/js-codec-base16.svg)](https://codeclimate.com/github/aureooms/js-codec-base16/trends/technical_debt)\n[![Documentation](https://aureooms.github.io/js-codec-base16/badge.svg)](https://aureooms.github.io/js-codec-base16/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@aureooms/js-codec-base16)](https://bundlephobia.com/result?p=@aureooms/js-codec-base16)\n",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/README.md",
+    "content": ":fax:\n[@codec-bytes/base16](https://codec-bytes.github.io/base16)\n==\n\nBase16 encoder/decoder for JavaScript.\nSee [docs](https://codec-bytes.github.io/base16/index.html).\nParent is [@codec-bytes/about](https://github.com/codec-bytes/about).\n\n```js\nimport {encode, decode} from '@codec-bytes/base16';\nencode('DEADBEEF'); // [ 222, 173, 190, 239 ]\ndecode([ 222, 173, 190, 239 ]); // 'DEADBEEF'\n```\n\n[![License](https://img.shields.io/github/license/codec-bytes/base16.svg)](https://raw.githubusercontent.com/codec-bytes/base16/main/LICENSE)\n[![Version](https://img.shields.io/npm/v/@codec-bytes/base16.svg)](https://www.npmjs.org/package/@codec-bytes/base16)\n[![Tests](https://img.shields.io/github/workflow/status/codec-bytes/base16/ci?event=push&label=tests)](https://github.com/codec-bytes/base16/actions/workflows/ci.yml?query=branch:main)\n[![Dependencies](https://img.shields.io/librariesio/github/codec-bytes/base16.svg)](https://github.com/codec-bytes/base16/network/dependencies)\n[![GitHub issues](https://img.shields.io/github/issues/codec-bytes/base16.svg)](https://github.com/codec-bytes/base16/issues)\n[![Downloads](https://img.shields.io/npm/dm/@codec-bytes/base16.svg)](https://www.npmjs.org/package/@codec-bytes/base16)\n\n[![Code issues](https://img.shields.io/codeclimate/issues/codec-bytes/base16.svg)](https://codeclimate.com/github/codec-bytes/base16/issues)\n[![Code maintainability](https://img.shields.io/codeclimate/maintainability/codec-bytes/base16.svg)](https://codeclimate.com/github/codec-bytes/base16/trends/churn)\n[![Code coverage (cov)](https://img.shields.io/codecov/c/gh/codec-bytes/base16/main.svg)](https://codecov.io/gh/codec-bytes/base16)\n[![Code technical debt](https://img.shields.io/codeclimate/tech-debt/codec-bytes/base16.svg)](https://codeclimate.com/github/codec-bytes/base16/trends/technical_debt)\n[![Documentation](https://codec-bytes.github.io/base16/badge.svg)](https://codec-bytes.github.io/base16/source.html)\n[![Package size](https://img.shields.io/bundlephobia/minzip/@codec-bytes/base16)](https://bundlephobia.com/result?p=@codec-bytes/base16)\n",
+    "longname": "/home/runner/work/base16/base16/README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@aureooms/js-codec-base16\",\n  \"description\": \"Base16 encoder/decoder for JavaScript\",\n  \"version\": \"2.0.0\",\n  \"author\": \"aureooms\",\n  \"ava\": {\n    \"require\": [\n      \"@babel/polyfill\",\n      \"@babel/register\"\n    ],\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"presets\": [\n      \"@babel/preset-env\"\n    ],\n    \"env\": {\n      \"development\": {\n        \"sourceMaps\": \"inline\"\n      }\n    }\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/aureooms/js-codec-base16/issues\"\n  },\n  \"dependencies\": {\n    \"@aureooms/js-codec\": \"^3.0.0\",\n    \"@aureooms/js-itertools\": \"^3.4.0\"\n  },\n  \"devDependencies\": {\n    \"@babel/cli\": \"7.8.4\",\n    \"@babel/core\": \"7.9.0\",\n    \"@babel/polyfill\": \"7.8.7\",\n    \"@babel/preset-env\": \"7.9.5\",\n    \"@babel/register\": \"7.9.0\",\n    \"ava\": \"3.8.1\",\n    \"coveralls\": \"3.1.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"np\": \"6.2.3\",\n    \"nyc\": \"15.0.1\"\n  },\n  \"files\": [\n    \"lib\"\n  ],\n  \"homepage\": \"https://aureooms.github.io/js-codec-base16\",\n  \"keywords\": [\n    \"base16\",\n    \"codec\",\n    \"decode\",\n    \"encode\",\n    \"strings\"\n  ],\n  \"license\": \"AGPL-3.0\",\n  \"main\": \"lib/index.js\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/aureooms/js-codec-base16\"\n  },\n  \"scripts\": {\n    \"build\": \"rm -rf lib && babel src -d lib\",\n    \"cover\": \"nyc --reporter=lcov npm test\",\n    \"esdoc\": \"esdoc\",\n    \"prepare\": \"npm run build\",\n    \"release\": \"np\",\n    \"test\": \"ava\"\n  }\n}\n",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/package.json",
+    "content": "{\n  \"name\": \"@codec-bytes/base16\",\n  \"description\": \"Base16 encoder/decoder for JavaScript\",\n  \"version\": \"3.0.0\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://codec-bytes.github.io/base16\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/codec-bytes/base16\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/codec-bytes/base16/issues\"\n  },\n  \"keywords\": [\n    \"base16\",\n    \"codec\",\n    \"decode\",\n    \"encode\",\n    \"strings\"\n  ],\n  \"sideEffects\": false,\n  \"type\": \"module\",\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.cjs\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.cjs\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:build\": \"npm run build\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"npm run test:src\",\n    \"test-cmd\": \"NODE_LOADER_CONFIG=test/loader/config.js ava\",\n    \"test:cjs\": \"IMPORT_MAP_PATH=test/import-maps/dist/index.json npm run test-cmd\",\n    \"test:dist\": \"npm run test:modern && npm run test:module && npm run test:cjs\",\n    \"test:modern\": \"IMPORT_MAP_PATH=test/import-maps/dist/index.modern.json npm run test-cmd\",\n    \"test:module\": \"IMPORT_MAP_PATH=test/import-maps/dist/index.module.json npm run test-cmd\",\n    \"test:src\": \"IMPORT_MAP_PATH=test/import-maps/src/index.json npm run test-cmd\"\n  },\n  \"dependencies\": {\n    \"@codec-bytes/error\": \"^5.0.0\",\n    \"@iterable-iterator/iter\": \"^1.0.1\",\n    \"@iterable-iterator/next\": \"^2.0.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"7.13.10\",\n    \"@babel/plugin-transform-destructuring\": \"7.19.4\",\n    \"@babel/plugin-transform-for-of\": \"7.18.8\",\n    \"@babel/preset-env\": \"7.13.10\",\n    \"@commitlint/cli\": \"17.1.2\",\n    \"@iterable-iterator/range\": \"^2.1.0\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"@node-loader/babel\": \"2.0.1\",\n    \"@node-loader/core\": \"2.0.0\",\n    \"@node-loader/import-maps\": \"1.1.0\",\n    \"ava\": \"4.3.3\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.0.1\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.12.0\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"8.0.1\",\n    \"lint-staged\": \"13.0.3\",\n    \"microbundle\": \"0.15.1\",\n    \"np\": \"7.4.0\",\n    \"pinst\": \"3.0.0\",\n    \"power-assert\": \"1.6.1\",\n    \"regenerator-runtime\": \"0.13.7\",\n    \"xo\": \"0.52.4\"\n  },\n  \"ava\": {\n    \"require\": [\n      \"regenerator-runtime/runtime\"\n    ],\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"timeout\": \"1m\",\n    \"nodeArguments\": [\n      \"--experimental-loader=@node-loader/core\"\n    ]\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"@babel/plugin-transform-destructuring\",\n          \"@babel/plugin-transform-for-of\",\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"*.js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": \"off\",\n      \"camelcase\": \"off\",\n      \"unicorn/prevent-abbreviations\": \"off\",\n      \"no-constant-condition\": \"off\",\n      \"unicorn/prefer-node-protocol\": \"off\",\n      \"unicorn/prefer-math-trunc\": \"off\",\n      \"unicorn/no-new-array\": \"off\",\n      \"no-negated-condition\": \"off\"\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
+    "longname": "/home/runner/work/base16/base16/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
@@ -959,7 +959,7 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/doc/manual/overview.md",
+    "longname": "/home/runner/work/base16/base16/doc/manual/overview.md",
     "name": "./doc/manual/overview.md",
     "content": "# Overview\n",
     "static": true,
@@ -967,23 +967,23 @@
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/doc/manual/installation.md",
+    "longname": "/home/runner/work/base16/base16/doc/manual/installation.md",
     "name": "./doc/manual/installation.md",
-    "content": "# Installation\n\nCan be managed using\n[jspm](http://jspm.io)\nor [npm](https://github.com/npm/npm).\n\n### jspm\n```terminal\njspm install npm:@aureooms/js-codec-base16\n```\n\n### npm\n```terminal\nnpm install @aureooms/js-codec-base16 --save\n```\n",
+    "content": "# Installation\n\nCan be managed using\n[jspm](http://jspm.io)\nor [npm](https://github.com/npm/npm).\n\n### jspm\n```terminal\njspm install npm:@codec-bytes/base16\n```\n\n### npm\n```terminal\nnpm install @codec-bytes/base16 --save\n```\n",
     "static": true,
     "access": "public"
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/doc/manual/usage.md",
+    "longname": "/home/runner/work/base16/base16/doc/manual/usage.md",
     "name": "./doc/manual/usage.md",
-    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[@babel/polyfill](https://babeljs.io/docs/usage/polyfill).\n```js\nrequire( '@babel/polyfill' ) ;\n// or\nimport '@babel/polyfill' ;\n```\n\nThen\n```js\nconst codecbase16 = require( '@aureooms/js-codec-base16' ) ;\n// or\nimport * as codecbase16 from '@aureooms/js-codec-base16' ;\n```\n",
+    "content": "# Usage\n\nThe code needs a ES2015+ polyfill to work, for example\n[regenerator-runtime/runtime](https://babeljs.io/docs/usage/polyfill).\n```js\nawait import( 'regenerator-runtime/runtime.js' ) ;\n// or\nimport 'regenerator-runtime/runtime.js' ;\n```\n\nThen\n```js\nconst codecbase16 = await import( '@codec-bytes/base16' ) ;\n// or\nimport * as codecbase16 from '@codec-bytes/base16' ;\n```\n",
     "static": true,
     "access": "public"
   },
   {
     "kind": "manual",
-    "longname": "/home/aureooms/dev/js/js-codec-base16/doc/manual/example.md",
+    "longname": "/home/runner/work/base16/base16/doc/manual/example.md",
     "name": "./doc/manual/example.md",
     "content": "# Example\n",
     "static": true,
