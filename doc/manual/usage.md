@@ -10,7 +10,7 @@ import 'regenerator-runtime/runtime' ;
 
 Then
 ```js
-const codecbase16 = require( '@aureooms/js-codec-base16' ) ;
+const codecbase16 = require( '@codec-bytes/base16' ) ;
 // or
-import * as codecbase16 from '@aureooms/js-codec-base16' ;
+import * as codecbase16 from '@codec-bytes/base16' ;
 ```

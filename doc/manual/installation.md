@@ -6,10 +6,10 @@ or [npm](https://github.com/npm/npm).
 
 ### jspm
 ```terminal
-jspm install npm:@aureooms/js-codec-base16
+jspm install npm:@codec-bytes/base16
 ```
 
 ### npm
 ```terminal
-npm install @aureooms/js-codec-base16 --save
+npm install @codec-bytes/base16 --save
 ```

@@ -1,4 +1,5 @@
-import { iter , next , StopIteration } from '@aureooms/js-itertools' ;
+import { next , StopIteration } from '@iterable-iterator/next' ;
+import { iter } from '@iterable-iterator/iter' ;
 
 import pair2byte from './pair2byte' ;
 import Base16EncodeError from './Base16EncodeError' ;

@@ -1,7 +1,7 @@
 import test from 'ava' ;
-import { CodecError } from '@aureooms/js-codec' ;
-import { range } from '@aureooms/js-itertools' ;
+import { range } from '@iterable-iterator/range' ;
 
+import {CodecError} from './_fixtures.js';
 import { decode , Base16DecodeError , byte2pair } from '../../src' ;
 
 function success ( t , bytes , options , expected ) {

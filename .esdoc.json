@@ -35,7 +35,7 @@
           "autoPrivate": true
         },
         "brand": {
-          "title": "@aureooms/js-codec-base16"
+          "title": "@codec-bytes/base16"
         },
         "test": {
           "type": "ava",

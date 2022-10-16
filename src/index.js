@@ -7,11 +7,6 @@ import decode from './decode' ;
 import encode from './encode' ;
 import pair2byte from './pair2byte' ;
 
-export default {
-	decode ,
-	encode ,
-} ;
-
 export {
 	Base16DecodeError ,
 	Base16EncodeError ,
@@ -22,3 +17,5 @@ export {
 	encode ,
 	pair2byte ,
 } ;
+
+export {CodecError} from '@codec-bytes/error';
