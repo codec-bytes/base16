@@ -1,5 +1,5 @@
-import byte2pair from './byte2pair' ;
-import Base16DecodeError from './Base16DecodeError' ;
+import byte2pair from './byte2pair.js' ;
+import Base16DecodeError from './Base16DecodeError.js' ;
 
 export default function* _decode ( bytes , options = null ) {
 
