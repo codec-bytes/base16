@@ -1,8 +1,8 @@
 import test from 'ava';
 import {range} from '@iterable-iterator/range';
 
-import {encode, Base16EncodeError, byte2pair} from '#module';
 import {CodecError} from './_fixtures.js';
+import {encode, Base16EncodeError, byte2pair} from '#module';
 
 function success(t, string, options, expected) {
 	const bytes = encode(string, options);
