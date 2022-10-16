@@ -15,14 +15,14 @@ const digits = [
 	'D',
 	'E',
 	'F',
-] ;
+];
 
-const pair2byte = [ ] ;
+const pair2byte = [];
 
-for ( const first of digits ) {
-	for ( const second of digits ) {
-		pair2byte.push( first + second ) ;
+for (const first of digits) {
+	for (const second of digits) {
+		pair2byte.push(first + second);
 	}
 }
 
-export default pair2byte ;
+export default pair2byte;
