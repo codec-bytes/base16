@@ -14,7 +14,7 @@ decode([ 222, 173, 190, 239 ]); // 'DEADBEEF'
 
 [![License](https://img.shields.io/github/license/codec-bytes/base16.svg)](https://raw.githubusercontent.com/codec-bytes/base16/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@codec-bytes/base16.svg)](https://www.npmjs.org/package/@codec-bytes/base16)
-[![Tests](https://img.shields.io/github/workflow/status/codec-bytes/base16/ci?event=push&label=tests)](https://github.com/codec-bytes/base16/actions/workflows/ci.yml?query=branch:main)
+[![Tests](https://img.shields.io/github/actions/workflow/status/codec-bytes/base16/ci.yml?branch=main&event=push&label=tests)](https://github.com/codec-bytes/base16/actions/workflows/ci.yml?query=branch:main)
 [![Dependencies](https://img.shields.io/librariesio/github/codec-bytes/base16.svg)](https://github.com/codec-bytes/base16/network/dependencies)
 [![GitHub issues](https://img.shields.io/github/issues/codec-bytes/base16.svg)](https://github.com/codec-bytes/base16/issues)
 [![Downloads](https://img.shields.io/npm/dm/@codec-bytes/base16.svg)](https://www.npmjs.org/package/@codec-bytes/base16)
