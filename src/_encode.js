@@ -1,8 +1,8 @@
-import {next, StopIteration} from '@iterable-iterator/next';
 import {iter} from '@iterable-iterator/iter';
+import {next, StopIteration} from '@iterable-iterator/next';
 
-import pair2byte from './pair2byte.js';
 import Base16EncodeError from './Base16EncodeError.js';
+import pair2byte from './pair2byte.js';
 
 export default function* _encode(string, _options = null) {
 	let start = 0;
@@ -32,7 +32,7 @@ export default function* _encode(string, _options = null) {
 
 		const pair = first + second;
 
-		if (!Object.prototype.hasOwnProperty.call(pair2byte, pair)) {
+		if (!Object.hasOwn(pair2byte, pair)) {
 			const reason = `cannot find pair ${pair}`;
 			const position = {start, end: start + 2};
 			throw new Base16EncodeError(reason, string, position);

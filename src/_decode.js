@@ -1,5 +1,5 @@
-import byte2pair from './byte2pair.js';
 import Base16DecodeError from './Base16DecodeError.js';
+import byte2pair from './byte2pair.js';
 
 export default function* _decode(bytes, _options = null) {
 	let start = 0;

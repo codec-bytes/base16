@@ -1,7 +1,9 @@
 import test from 'ava';
+
 import {range} from '@iterable-iterator/range';
 
 import {CodecError} from './_fixtures.js';
+
 import {decode, Base16DecodeError, byte2pair} from '#module';
 
 function success(t, bytes, options, expected) {
